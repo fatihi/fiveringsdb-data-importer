@@ -1,9 +1,9 @@
-import json
 from database_controller import DatabaseController
 from helper import *
+from importer.importer_base import Importer
 
 
-class PackImporter:
+class PackImporter(Importer):
     def __init__(self, data_folder_path):
         self.packs_data_file = data_folder_path + "Pack.json"
         self.table_name = "pack"
@@ -13,21 +13,15 @@ class PackImporter:
         self.update = create_update_on_conflict_statement(columns[1:])
         self.database_controller = DatabaseController()
 
-    def execute_import(self):
-        with open(self.packs_data_file, encoding="UTF-8") as packs_json:
-            packs = json.load(packs_json)
-            values = []
-            for pack in packs:
-                value = "("
-                value += "\'" + transform_string(pack["id"]) + "\', "
-                value += "\'" + transform_string(pack["name"]) + "\', "
-                value += str(pack["position"]) + ", "
-                released_at = 'NULL' if pack["released_at"] is None else "\'" + pack["released_at"] + "\'"
-                value += released_at + ", "
-                value += str(pack["size"]) + ", "
-                value += "\'" + transform_string(pack["cycle_id"]) + "\', "
-                value += "\'" + transform_string(pack["ffg_id"]) + "\'"
-                value += ")"
-                values.append(value)
-            values_string = ", ".join(values)
-            self.database_controller.upsert(self.table_name, self.columns, values_string, self.key, self.update)
+    def get_value(self, entry):
+        value = "("
+        value += "\'" + transform_string(entry["id"]) + "\', "
+        value += "\'" + transform_string(entry["name"]) + "\', "
+        value += str(entry["position"]) + ", "
+        released_at = 'NULL' if entry["released_at"] is None else "\'" + entry["released_at"] + "\'"
+        value += released_at + ", "
+        value += str(entry["size"]) + ", "
+        value += "\'" + transform_string(entry["cycle_id"]) + "\', "
+        value += "\'" + transform_string(entry["ffg_id"]) + "\'"
+        value += ")"
+        return value
