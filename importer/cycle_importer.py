@@ -18,12 +18,12 @@ class CycleImporter:
             cycles = json.load(cycles_json)
             values = []
             for cycle in cycles:
-                cycle_values = "("
-                cycle_values += "\'" + cycle["id"] + "\', "
-                cycle_values += "\'" + cycle["name"] + "\', "
-                cycle_values += str(cycle["position"]) + ", "
-                cycle_values += str(cycle["size"])
-                cycle_values += ")"
-                values.append(cycle_values)
+                value = "("
+                value += "\'" + transform_string(cycle["id"]) + "\', "
+                value += "\'" + transform_string(cycle["name"]) + "\', "
+                value += str(cycle["position"]) + ", "
+                value += str(cycle["size"])
+                value += ")"
+                values.append(value)
             values_string = ", ".join(values)
             self.database_controller.upsert(self.table_name, self.columns, values_string, self.key, self.update)
