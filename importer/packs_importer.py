@@ -3,7 +3,7 @@ from database_controller import DatabaseController
 from helper import *
 
 
-class PacksImporter:
+class PackImporter:
     def __init__(self, data_folder_path):
         self.packs_data_file = data_folder_path + "Pack.json"
         self.table_name = "pack"
@@ -22,7 +22,8 @@ class PacksImporter:
                 value += "\'" + transform_string(pack["id"]) + "\', "
                 value += "\'" + transform_string(pack["name"]) + "\', "
                 value += str(pack["position"]) + ", "
-                value += "\'" + pack["released_at"] + "\', "
+                released_at = 'NULL' if pack["released_at"] is None else "\'" + pack["released_at"] + "\'"
+                value += released_at + ", "
                 value += str(pack["size"]) + ", "
                 value += "\'" + transform_string(pack["cycle_id"]) + "\', "
                 value += "\'" + transform_string(pack["ffg_id"]) + "\'"
