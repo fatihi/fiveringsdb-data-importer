@@ -16,8 +16,8 @@ class CycleImporter(Importer):
     def get_value(self, entry):
         value = "("
         value += "\'" + transform_string(entry["id"]) + "\', "
-        value += get_nullable_string_value(entry, "name") + ", "
-        value += get_nullable_number_value(entry, "position") + ", "
-        value += get_nullable_number_value(entry, "size")
+        value += get_nullable_value(entry, "name") + ", "
+        value += get_nullable_value(entry, "position") + ", "
+        value += get_nullable_value(entry, "size")
         value += ")"
         return value

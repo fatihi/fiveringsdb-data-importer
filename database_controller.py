@@ -13,7 +13,6 @@ class DatabaseController:
             ON CONFLICT ({key}) DO UPDATE SET
             {update}
         ;""".format(table=table, columns=columns, values=values, key=key, update=update)
-        print("Executing Query: " + query)
         self.execute_query(query)
 
     def execute_query(self, query):
