@@ -16,12 +16,11 @@ class PackImporter(Importer):
     def get_value(self, entry):
         value = "("
         value += "\'" + transform_string(entry["id"]) + "\', "
-        value += "\'" + transform_string(entry["name"]) + "\', "
-        value += str(entry["position"]) + ", "
-        released_at = 'NULL' if entry["released_at"] is None else "\'" + entry["released_at"] + "\'"
-        value += released_at + ", "
-        value += str(entry["size"]) + ", "
-        value += "\'" + transform_string(entry["cycle_id"]) + "\', "
-        value += "\'" + transform_string(entry["ffg_id"]) + "\'"
+        value += get_nullable_string_value(entry, "name") + ", "
+        value += get_nullable_number_value(entry, "position") + ", "
+        value += get_nullable_string_value(entry, "released_at") + ", "
+        value += get_nullable_number_value(entry, "size") + ", "
+        value += get_nullable_string_value(entry, "cycle_id") + ", "
+        value += get_nullable_string_value(entry, "ffg_id")
         value += ")"
         return value

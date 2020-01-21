@@ -1,4 +1,3 @@
-import json
 from database_controller import DatabaseController
 from helper import *
 from importer.importer_base import Importer
@@ -14,12 +13,11 @@ class CycleImporter(Importer):
         self.update = create_update_on_conflict_statement(columns[1:])
         self.database_controller = DatabaseController()
 
-    @staticmethod
-    def get_value(entry):
+    def get_value(self, entry):
         value = "("
         value += "\'" + transform_string(entry["id"]) + "\', "
-        value += "\'" + transform_string(entry["name"]) + "\', "
-        value += str(entry["position"]) + ", "
-        value += str(entry["size"])
+        value += get_nullable_string_value(entry, "name") + ", "
+        value += get_nullable_number_value(entry, "position") + ", "
+        value += get_nullable_number_value(entry, "size")
         value += ")"
         return value
