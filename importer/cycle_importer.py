@@ -5,7 +5,7 @@ from importer.importer_base import Importer
 
 class CycleImporter(Importer):
     def __init__(self, data_folder_path):
-        self.packs_data_file = data_folder_path + "Cycle.json"
+        self.data_file = data_folder_path + "Cycle.json"
         self.table_name = "cycle"
         columns = ["id", "name", "position", "size"]
         self.columns = create_comma_separated_string(columns)

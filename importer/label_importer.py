@@ -5,7 +5,7 @@ from importer.importer_base import Importer
 
 class LabelImporter(Importer):
     def __init__(self, data_folder_path):
-        self.packs_data_file = data_folder_path + "Label/en.json"
+        self.data_file = data_folder_path + "Label/en.json"
         self.table_name = "label"
         columns = ["id", "value"]
         self.columns = create_comma_separated_string(columns)

@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 class Importer(ABC):
     def execute_import(self):
-        with open(self.packs_data_file, encoding="UTF-8") as jsons_str:
+        with open(self.data_file, encoding="UTF-8") as jsons_str:
             jsons = json.load(jsons_str)
             values = []
             for cycle in jsons:
