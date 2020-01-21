@@ -15,8 +15,14 @@ def transform_string(s):
 
 
 def get_nullable_string_value(entry, field):
-    return 'NULL' if entry[field] is None else "\'" + transform_string(entry[field]) + "\'"
+    result = 'NULL'
+    if (field in entry) and (entry[field] is not None):
+        result = "\'" + transform_string(entry[field]) + "\'"
+    return result
 
 
 def get_nullable_number_value(entry, field):
-    return 'NULL' if entry[field] is None else str(entry[field])
+    result = 'NULL'
+    if (field in entry) and (entry[field] is not None):
+        result = str(entry[field])
+    return result

@@ -20,7 +20,7 @@ class PackImporter(Importer):
         value += get_nullable_number_value(entry, "position") + ", "
         value += get_nullable_string_value(entry, "released_at") + ", "
         value += get_nullable_number_value(entry, "size") + ", "
-        value += get_nullable_string_value(entry, "cycle_id") + ", "
+        value += "\'" + transform_string(entry["cycle_id"]) + "\', "
         value += get_nullable_string_value(entry, "ffg_id")
         value += ")"
         return value
